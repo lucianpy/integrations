@@ -233,3 +233,14 @@ Please refer to the following [document](https://www.elastic.co/guide/en/ecs/cur
 
 {{fields "teams_device_usage_user_counts"}}
 
+### Subscriptions
+
+Get details about Teams device usage from [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/api/subscribedsku-list?view=graph-rest-1.0&tabs=http).
+
+{{event "subscriptions"}}
+
+**ECS Field Reference**
+
+Please refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+{{fields "subscriptions"}}

@@ -1695,3 +1695,185 @@ Please refer to the following [document](https://www.elastic.co/guide/en/ecs/cur
 | o365.metrics.teams.device.usage.user.counts.windows_phone.count | The number of active Teams users on Windows Phone devices. | long |  |
 
 
+### Subscriptions
+
+Get details about Teams device usage from [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/api/subscribedsku-list?view=graph-rest-1.0&tabs=http).
+
+An example event for `subscriptions` looks as following:
+
+```json
+{
+    "o365": {
+        "metrics": {
+            "subscriptions": {
+                "value": [
+                    {
+                        "account_id": "f97aeefc-af85-414d-8ae4-b457f90efc40",
+                        "account_name": "DummyAccount1",
+                        "applies_to": "User",
+                        "capability_status": "Enabled",
+                        "consumed_units": {
+                            "count": 12
+                        },
+                        "id": "48a80680-7326-48cd-9935-b556b81d3a4e_c7df2760-2c81-4ef7-b578-5b5392b571df",
+                        "prepaid_units": {
+                            "enabled": {
+                                "count": 14
+                            },
+                            "locked_out": {
+                                "count": 15
+                            },
+                            "suspended": {
+                                "count": 27
+                            },
+                            "warning": {
+                                "count": 28
+                            }
+                        },
+                        "service_plan": [
+                            {
+                                "applies_to": "Company",
+                                "provisioning_status": "Success",
+                                "service": "8c098270-9dd4-4350-9b30-ba4703f3b36b",
+                                "service_plan_name": "ADALLOM_S_O365"
+                            }
+                        ],
+                        "sku_id": "c7df2760-2c81-4ef7-b578-5b5392b571df",
+                        "sku_part_number": "ENTERPRISEPREMIUM",
+                        "subscription_ids": [
+                            "43d26afe-cb98-48b9-acc4-ae3ef2ac6c51"
+                        ]
+                    },
+                    {
+                        "account_id": "ee045480-0260-4c1e-b946-55842502229c",
+                        "account_name": "DummyAccount2",
+                        "applies_to": "User",
+                        "capability_status": "Suspended",
+                        "consumed_units": {
+                            "count": 14
+                        },
+                        "id": "48a80680-7326-48cd-9935-b556b81d3a4e_d17b27af-3f49-4822-99f9-56a661538792",
+                        "prepaid_units": {
+                            "enabled": {
+                                "count": 12
+                            },
+                            "locked_out": {
+                                "count": 11
+                            },
+                            "suspended": {
+                                "count": 25
+                            },
+                            "warning": {
+                                "count": 13
+                            }
+                        },
+                        "service_plan": [
+                            {
+                                "applies_to": "User",
+                                "provisioning_status": "Disabled",
+                                "service_plan_id": "f9646fb2-e3b2-4309-95de-dc4833737456",
+                                "service_plan_name": "CRMSTANDARD"
+                            }
+                        ],
+                        "sku_id": "d17b27af-3f49-4822-99f9-56a661538792",
+                        "sku_part_number": "CRMSTANDARD",
+                        "subscription_ids": [
+                            "15c301e0-c769-4f12-bab1-1e8519a7a6f1"
+                        ]
+                    }
+                ],
+                "report": {
+                    "period": {
+                        "day": "7"
+                    },
+                    "refresh_date": "2025-01-08"
+                }
+            }
+        }
+    },
+    "agent": {
+        "name": "docker-fleet-agent",
+        "id": "abf38fab-f7b6-4e1c-a3b3-a70a64f9e5db",
+        "ephemeral_id": "08417a8d-9698-4c62-b7dc-e1b048647626",
+        "type": "filebeat",
+        "version": "8.16.0"
+    },
+    "@timestamp": "2025-01-08T09:39:43.406Z",
+    "ecs": {
+        "version": "8.16.0"
+    },
+    "data_stream": {
+        "namespace": "default",
+        "type": "metrics",
+        "dataset": "o365_metrics.subscriptions"
+    },
+    "host": {
+        "hostname": "docker-fleet-agent",
+        "os": {
+            "kernel": "5.10.104-linuxkit",
+            "name": "Wolfi",
+            "family": "",
+            "type": "linux",
+            "version": "20230201",
+            "platform": "wolfi"
+        },
+        "ip": [
+            "192.168.48.7"
+        ],
+        "containerized": false,
+        "name": "docker-fleet-agent",
+        "mac": [
+            "02-42-C0-A8-30-07"
+        ],
+        "architecture": "aarch64"
+    },
+    "elastic_agent": {
+        "id": "abf38fab-f7b6-4e1c-a3b3-a70a64f9e5db",
+        "version": "8.16.0",
+        "snapshot": false
+    },
+    "event": {
+        "agent_id_status": "verified",
+        "ingested": "2025-01-08T09:39:44Z",
+        "dataset": "o365_metrics.subscriptions"
+    },
+    "tags": [
+        "o365metrics-subscriptions"
+    ]
+}
+```
+
+**ECS Field Reference**
+
+Please refer to the following [document](https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html) for detailed information on ECS fields.
+
+**Exported fields**
+
+| Field | Description | Type | Metric Type |
+|---|---|---|---|
+| @timestamp | Event timestamp. | date |  |
+| cloud.image.id | Image ID for the cloud instance. | keyword |  |
+| data_stream.dataset | Data stream dataset. | constant_keyword |  |
+| data_stream.namespace | Data stream namespace. | constant_keyword |  |
+| data_stream.type | Data stream type. | constant_keyword |  |
+| host.containerized | If the host is a container. | boolean |  |
+| host.os.build | OS build information. | keyword |  |
+| host.os.codename | OS codename, if any. | keyword |  |
+| o365.metrics.subscriptions.accounts.account_id | Unique identifier for the account. | keyword |  |
+| o365.metrics.subscriptions.accounts.account_name | Name of the account. | text |  |
+| o365.metrics.subscriptions.accounts.applies_to | Type of entity the subscription applies to (e.g. User or Company). | keyword |  |
+| o365.metrics.subscriptions.accounts.capability_status | Status of the capability (e.g. Enabled, Suspended). | keyword |  |
+| o365.metrics.subscriptions.accounts.consumed_units.count | Number of consumed units. | long | gauge |
+| o365.metrics.subscriptions.accounts.id | Unique identifier for the subscription entry. | keyword |  |
+| o365.metrics.subscriptions.accounts.prepaid_units.enabled.count | Number of enabled prepaid units. | long | gauge |
+| o365.metrics.subscriptions.accounts.prepaid_units.locked_out.count | Number of locked-out prepaid units. | long | gauge |
+| o365.metrics.subscriptions.accounts.prepaid_units.suspended.count | Number of suspended prepaid units. | long | gauge |
+| o365.metrics.subscriptions.accounts.prepaid_units.warning.count | Number of prepaid units in warning state. | long | gauge |
+| o365.metrics.subscriptions.accounts.service_plans.applies_to | Type of entity the service plan applies to. | keyword |  |
+| o365.metrics.subscriptions.accounts.service_plans.provisioning_status | Status of the service plan provisioning. | keyword |  |
+| o365.metrics.subscriptions.accounts.service_plans.service_plan_id | Unique identifier for the service plan. | keyword |  |
+| o365.metrics.subscriptions.accounts.service_plans.service_plan_name | Name of the service plan. | keyword |  |
+| o365.metrics.subscriptions.accounts.sku_id | Unique identifier for the SKU. | keyword |  |
+| o365.metrics.subscriptions.accounts.sku_part_number | SKU part number. | keyword |  |
+| o365.metrics.subscriptions.accounts.subscription_ids | Array of subscription IDs. | keyword |  |
+
