@@ -1,10 +1,10 @@
-title: Microsoft Office 365 Subscriptions metrics
+title: Microsoft 365 Subscriptions metrics
 type: metrics
 streams:
   - input: cel
-    title: Office 365 Subscriptions metrics.
+    title: Microsoft 365 Subscriptions metrics.
     enabled: true
-    description: Collect Office 365 Subscriptions metrics.
+    description: Collect Microsoft 365 Subscriptions metrics.
     template_path: cel.yml.hbs
     vars:
       - name: interval
