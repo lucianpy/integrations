@@ -1706,7 +1706,7 @@ An example event for `subscriptions` looks as following:
     "o365": {
         "metrics": {
             "subscriptions": {
-                "value": [
+                "accounts": [
                     {
                         "account_id": "f97aeefc-af85-414d-8ae4-b457f90efc40",
                         "account_name": "DummyAccount1",
@@ -1781,13 +1781,7 @@ An example event for `subscriptions` looks as following:
                             "15c301e0-c769-4f12-bab1-1e8519a7a6f1"
                         ]
                     }
-                ],
-                "report": {
-                    "period": {
-                        "day": "7"
-                    },
-                    "refresh_date": "2025-01-08"
-                }
+                ]
             }
         }
     },
