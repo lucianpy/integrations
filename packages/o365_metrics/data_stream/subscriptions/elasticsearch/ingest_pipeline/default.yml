@@ -201,6 +201,12 @@ processors:
              target_field: _ingest._value.service_plan_name
              ignore_missing: true
 
+  - fingerprint:
+      fields:
+        - o365.metrics.subscriptions.accounts
+      ignore_missing: true
+      target_field: _id     
+
 on_failure:
   - set:
       field: error.message
