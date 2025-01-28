@@ -235,7 +235,7 @@ Please refer to the following [document](https://www.elastic.co/guide/en/ecs/cur
 
 ### Subscriptions
 
-Get details about Teams device usage from [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/api/subscribedsku-list?view=graph-rest-1.0&tabs=http).
+Get details about Subscriptions from [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/api/subscribedsku-list?view=graph-rest-1.0&tabs=http).
 
 {{event "subscriptions"}}
 
