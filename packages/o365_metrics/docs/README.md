@@ -1730,11 +1730,11 @@ An example event for `subscriptions` looks as following:
                                 "count": 28
                             }
                         },
-                        "service_plan": [
+                        "service_plans": [
                             {
                                 "applies_to": "Company",
                                 "provisioning_status": "Success",
-                                "service": "8c098270-9dd4-4350-9b30-ba4703f3b36b",
+                                "service_plan_id": "8c098270-9dd4-4350-9b30-ba4703f3b36b",
                                 "service_plan_name": "ADALLOM_S_O365"
                             }
                         ],
@@ -1767,7 +1767,7 @@ An example event for `subscriptions` looks as following:
                                 "count": 13
                             }
                         },
-                        "service_plan": [
+                        "service_plans": [
                             {
                                 "applies_to": "User",
                                 "provisioning_status": "Disabled",
@@ -1792,7 +1792,7 @@ An example event for `subscriptions` looks as following:
         "type": "filebeat",
         "version": "8.16.0"
     },
-    "@timestamp": "2025-01-08T09:39:43.406Z",
+    "@timestamp": "2025-01-27T09:39:43.406Z",
     "ecs": {
         "version": "8.16.0"
     },
@@ -1828,7 +1828,7 @@ An example event for `subscriptions` looks as following:
     },
     "event": {
         "agent_id_status": "verified",
-        "ingested": "2025-01-08T09:39:44Z",
+        "ingested": "2025-01-27T09:39:44Z",
         "dataset": "o365_metrics.subscriptions"
     },
     "tags": [
