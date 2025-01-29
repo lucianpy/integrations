@@ -1714,21 +1714,21 @@ An example event for `subscriptions` looks as following:
                         "applies_to": "User",
                         "capability_status": "Enabled",
                         "consumed_units": {
-                            "count": 12
+                            "count": 14
                         },
                         "id": "48a80680-7326-48cd-9935-b556b81d3a4e_c7df2760-2c81-4ef7-b578-5b5392b571df",
                         "prepaid_units": {
                             "enabled": {
-                                "count": 14
+                                "count": 25
                             },
                             "locked_out": {
-                                "count": 15
+                                "count": 5
                             },
                             "suspended": {
-                                "count": 27
+                                "count": 13
                             },
                             "warning": {
-                                "count": 28
+                                "count": 7
                             }
                         },
                         "service_plans": [
@@ -1743,7 +1743,10 @@ An example event for `subscriptions` looks as following:
                         "sku_part_number": "ENTERPRISEPREMIUM",
                         "subscription_ids": [
                             "43d26afe-cb98-48b9-acc4-ae3ef2ac6c51"
-                        ]
+                        ],
+                        "surplus_units": {
+                            "count": 11
+                        }
                     },
                     {
                         "account_id": "ee045480-0260-4c1e-b946-55842502229c",
@@ -1756,16 +1759,16 @@ An example event for `subscriptions` looks as following:
                         "id": "48a80680-7326-48cd-9935-b556b81d3a4e_d17b27af-3f49-4822-99f9-56a661538792",
                         "prepaid_units": {
                             "enabled": {
-                                "count": 12
+                                "count": 32
                             },
                             "locked_out": {
-                                "count": 11
+                                "count": 5
                             },
                             "suspended": {
                                 "count": 25
                             },
                             "warning": {
-                                "count": 13
+                                "count": 6
                             }
                         },
                         "service_plans": [
@@ -1780,7 +1783,10 @@ An example event for `subscriptions` looks as following:
                         "sku_part_number": "CRMSTANDARD",
                         "subscription_ids": [
                             "15c301e0-c769-4f12-bab1-1e8519a7a6f1"
-                        ]
+                        ],
+                        "surplus_units": {
+                            "count": 18
+                        }
                     }
                 ]
             }
@@ -1793,7 +1799,7 @@ An example event for `subscriptions` looks as following:
         "type": "filebeat",
         "version": "8.16.0"
     },
-    "@timestamp": "2025-01-27T09:39:43.406Z",
+    "@timestamp": "2025-01-29T12:36:44.408Z",
     "ecs": {
         "version": "8.16.0"
     },
@@ -1829,7 +1835,7 @@ An example event for `subscriptions` looks as following:
     },
     "event": {
         "agent_id_status": "verified",
-        "ingested": "2025-01-27T09:39:44Z",
+        "ingested": "2025-01-29T12:35:44.48Z",
         "dataset": "o365_metrics.subscriptions"
     },
     "tags": [
