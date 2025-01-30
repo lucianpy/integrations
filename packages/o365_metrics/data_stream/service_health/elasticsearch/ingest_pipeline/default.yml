@@ -5,17 +5,25 @@ processors:
       field: ecs.version
       value: "8.16.0"
   - json:
-      field: service_health
+      field: message
       target_field: o365.metrics.service.health
       tag: json_decoding
       on_failure:
         - append:
             field: error.message
             value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+
+  - set:
+      copy_from: message
+      field: event.original
+      ignore_empty_value: true
+      if: ctx.event?.original == null && (ctx.tags != null && (ctx.tags.contains('preserve_original_event')))
+
   - script:
       lang: painless
       description: Replace spaces, dashes and bom character in field names under o365.metrics.service.health.
       tag: painless_purge_spaces_and_dashes
+      ignore_failure: true
       if: ctx.o365.metrics?.service?.health instanceof Map
       source: |
         String underscore(String s) {
@@ -29,15 +37,9 @@ processors:
         }
         ctx.o365.metrics.service.health = out;
 
-  - set:
-      copy_from: service_health
-      field: event.original
-      ignore_empty_value: true
-      if: ctx.event?.original == null && (ctx.tags != null && (ctx.tags.contains('preserve_original_event')))
-
   - remove:
-      if: ctx.service_health != null
-      field: service_health
+      if: ctx.message != null
+      field: message
       ignore_missing: true
 
   - script:
