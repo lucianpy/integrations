@@ -316,12 +316,6 @@ processors:
           }
         }
 
-  - fingerprint:
-      fields:
-        - o365.metrics.subscriptions.accounts
-      ignore_missing: true
-      target_field: _id
-
   - remove:
       if: ctx.subscriptions != null
       field: subscriptions
