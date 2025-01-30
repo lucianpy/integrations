@@ -4,6 +4,11 @@ processors:
   - set:
       field: ecs.version
       value: "8.16.0"
+  - set:
+      copy_from: subscriptions
+      field: event.original
+      ignore_empty_value: true
+      if: ctx.event?.original == null && (ctx.tags != null && (ctx.tags.contains('preserve_original_event')))
   - json:
       field: subscriptions
       target_field: o365.metrics.subscriptions
@@ -11,10 +16,6 @@ processors:
         - append:
             field: error.message
             value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
-  - remove:
-      if: ctx.subscriptions != null
-      field: subscriptions
-      ignore_missing: true
   - rename:
       field: o365.metrics.subscriptions.value
       target_field: o365.metrics.subscriptions.accounts
@@ -321,11 +322,10 @@ processors:
       ignore_missing: true
       target_field: _id
 
-  - set:
-      copy_from: service_health
-      field: event.original
-      ignore_empty_value: true
-      if: ctx.event?.original == null && (ctx.tags != null && (ctx.tags.contains('preserve_original_event')))
+  - remove:
+      if: ctx.subscriptions != null
+      field: subscriptions
+      ignore_missing: true
 
   - script:
       description: Drops null/empty values recursively.
@@ -343,7 +343,7 @@ processors:
             }
             return false;
         }
-        drop(ctx);      
+        drop(ctx);
 
 on_failure:
   - set:
