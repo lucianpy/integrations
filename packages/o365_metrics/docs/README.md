@@ -1848,88 +1848,44 @@ An example event for `subscriptions` looks as following:
     "o365": {
         "metrics": {
             "subscriptions": {
-                "accounts": [
-                    {
-                        "account_id": "f97aeefc-af85-414d-8ae4-b457f90efc40",
-                        "account_name": "DummyAccount1",
-                        "applies_to": "User",
-                        "capability_status": "Enabled",
-                        "consumed_units": {
-                            "count": 14
-                        },
-                        "id": "48a80680-7326-48cd-9935-b556b81d3a4e_c7df2760-2c81-4ef7-b578-5b5392b571df",
-                        "prepaid_units": {
-                            "enabled": {
-                                "count": 25
-                            },
-                            "locked_out": {
-                                "count": 5
-                            },
-                            "suspended": {
-                                "count": 13
-                            },
-                            "warning": {
-                                "count": 7
-                            }
-                        },
-                        "service_plans": [
-                            {
-                                "applies_to": "Company",
-                                "provisioning_status": "Success",
-                                "service_plan_id": "8c098270-9dd4-4350-9b30-ba4703f3b36b",
-                                "service_plan_name": "ADALLOM_S_O365"
-                            }
-                        ],
-                        "sku_id": "c7df2760-2c81-4ef7-b578-5b5392b571df",
-                        "sku_part_number": "ENTERPRISEPREMIUM",
-                        "subscription_ids": [
-                            "43d26afe-cb98-48b9-acc4-ae3ef2ac6c51"
-                        ],
-                        "surplus_units": {
-                            "count": 11
-                        }
+                "account_id": "f97aeefc-af85-414d-8ae4-b457f90efc40",
+                "account_name": "Account1",
+                "applies_to": "User",
+                "capability_status": "Enabled",
+                "consumed_units": {
+                    "count": 14
+                },
+                "id": "48a80680-7326-48cd-9935-b556b81d3a4e_c7df2760-2c81-4ef7-b578-5b5392b571df",
+                "prepaid_units": {
+                    "enabled": {
+                        "count": 25
                     },
-                    {
-                        "account_id": "ee045480-0260-4c1e-b946-55842502229c",
-                        "account_name": "DummyAccount2",
-                        "applies_to": "User",
-                        "capability_status": "Suspended",
-                        "consumed_units": {
-                            "count": 14
-                        },
-                        "id": "48a80680-7326-48cd-9935-b556b81d3a4e_d17b27af-3f49-4822-99f9-56a661538792",
-                        "prepaid_units": {
-                            "enabled": {
-                                "count": 32
-                            },
-                            "locked_out": {
-                                "count": 5
-                            },
-                            "suspended": {
-                                "count": 25
-                            },
-                            "warning": {
-                                "count": 6
-                            }
-                        },
-                        "service_plans": [
-                            {
-                                "applies_to": "User",
-                                "provisioning_status": "Disabled",
-                                "service_plan_id": "f9646fb2-e3b2-4309-95de-dc4833737456",
-                                "service_plan_name": "CRMSTANDARD"
-                            }
-                        ],
-                        "sku_id": "d17b27af-3f49-4822-99f9-56a661538792",
-                        "sku_part_number": "CRMSTANDARD",
-                        "subscription_ids": [
-                            "15c301e0-c769-4f12-bab1-1e8519a7a6f1"
-                        ],
-                        "surplus_units": {
-                            "count": 18
-                        }
+                    "locked_out": {
+                        "count": 5
+                    },
+                    "suspended": {
+                        "count": 13
+                    },
+                    "warning": {
+                        "count": 7
                     }
-                ]
+                },
+                "service_plans": [
+                    {
+                        "applies_to": "Company",
+                        "provisioning_status": "Success",
+                        "service_plan_id": "8c098270-9dd4-4350-9b30-ba4703f3b36b",
+                        "service_plan_name": "ADALLOM_S_O365"
+                    }
+                ],
+                "sku_id": "c7df2760-2c81-4ef7-b578-5b5392b571df",
+                "sku_part_number": "ENTERPRISEPREMIUM",
+                "subscription_ids": [
+                    "43d26afe-cb98-48b9-acc4-ae3ef2ac6c51"
+                ],
+                "surplus_units": {
+                    "count": 11
+                }
             }
         }
     },
@@ -1978,7 +1934,7 @@ An example event for `subscriptions` looks as following:
         "agent_id_status": "verified",
         "ingested": "2025-01-29T12:35:44.48Z",
         "dataset": "o365_metrics.subscriptions",
-        "original": "{\"value\":[{\"accountName\":\"Account1\",\"accountId\":\"f97aeefc-af85-414d-8ae4-b457f90efc40\",\"appliesTo\":\"User\",\"capabilityStatus\":\"Enabled\",\"consumedUnits\":14,\"id\":\"48a80680-7326-48cd-9935-b556b81d3a4e_c7df2760-2c81-4ef7-b578-5b5392b571df\",\"prepaidUnits\":{\"enabled\":25,\"lockedOut\":5,\"suspended\":13,\"warning\":7},\"servicePlans\":[{\"servicePlanId\":\"8c098270-9dd4-4350-9b30-ba4703f3b36b\",\"servicePlanName\":\"ADALLOM_S_O365\",\"provisioningStatus\":\"Success\",\"appliesTo\":\"Company\"}],\"skuId\":\"c7df2760-2c81-4ef7-b578-5b5392b571df\",\"skuPartNumber\":\"ENTERPRISEPREMIUM\",\"subscriptionIds\":[\"43d26afe-cb98-48b9-acc4-ae3ef2ac6c51\"]},{\"accountName\":\"Account2\",\"accountId\":\"ee045480-0260-4c1e-b946-55842502229c\",\"appliesTo\":\"User\",\"capabilityStatus\":\"Suspended\",\"consumedUnits\":14,\"id\":\"48a80680-7326-48cd-9935-b556b81d3a4e_d17b27af-3f49-4822-99f9-56a661538792\",\"prepaidUnits\":{\"enabled\":32,\"lockedOut\":5,\"suspended\":25,\"warning\":6},\"servicePlans\":[{\"servicePlanId\":\"f9646fb2-e3b2-4309-95de-dc4833737456\",\"servicePlanName\":\"CRMSTANDARD\",\"provisioningStatus\":\"Disabled\",\"appliesTo\":\"User\"}],\"skuId\":\"d17b27af-3f49-4822-99f9-56a661538792\",\"skuPartNumber\":\"CRMSTANDARD\",\"subscriptionIds\":[\"15c301e0-c769-4f12-bab1-1e8519a7a6f1\"]}]}"
+        "original": "{\"accountName\":\"Account1\",\"accountId\":\"f97aeefc-af85-414d-8ae4-b457f90efc40\",\"appliesTo\":\"User\",\"capabilityStatus\":\"Enabled\",\"consumedUnits\":14,\"id\":\"48a80680-7326-48cd-9935-b556b81d3a4e_c7df2760-2c81-4ef7-b578-5b5392b571df\",\"prepaidUnits\":{\"enabled\":25,\"lockedOut\":5,\"suspended\":13,\"warning\":7},\"servicePlans\":[{\"servicePlanId\":\"8c098270-9dd4-4350-9b30-ba4703f3b36b\",\"servicePlanName\":\"ADALLOM_S_O365\",\"provisioningStatus\":\"Success\",\"appliesTo\":\"Company\"}],\"skuId\":\"c7df2760-2c81-4ef7-b578-5b5392b571df\",\"skuPartNumber\":\"ENTERPRISEPREMIUM\",\"subscriptionIds\":[\"43d26afe-cb98-48b9-acc4-ae3ef2ac6c51\"]}"
     },
     "tags": [
         "o365metrics-subscriptions"
@@ -2002,22 +1958,22 @@ Please refer to the following [document](https://www.elastic.co/guide/en/ecs/cur
 | host.containerized | If the host is a container. | boolean |
 | host.os.build | OS build information. | keyword |
 | host.os.codename | OS codename, if any. | keyword |
-| o365.metrics.subscriptions.accounts.account_id | Unique identifier for the account. | keyword |
-| o365.metrics.subscriptions.accounts.account_name | Name of the account. | text |
-| o365.metrics.subscriptions.accounts.applies_to | Type of entity the subscription applies to (e.g. User or Company). | keyword |
-| o365.metrics.subscriptions.accounts.capability_status | Status of the capability (e.g. Enabled, Suspended). | keyword |
-| o365.metrics.subscriptions.accounts.consumed_units.count | Number of consumed units. | long |
-| o365.metrics.subscriptions.accounts.id | Unique identifier for the subscription entry. | keyword |
-| o365.metrics.subscriptions.accounts.prepaid_units.enabled.count | Number of enabled prepaid units. | long |
-| o365.metrics.subscriptions.accounts.prepaid_units.locked_out.count | Number of locked-out prepaid units. | long |
-| o365.metrics.subscriptions.accounts.prepaid_units.suspended.count | Number of suspended prepaid units. | long |
-| o365.metrics.subscriptions.accounts.prepaid_units.warning.count | Number of prepaid units in warning state. | long |
-| o365.metrics.subscriptions.accounts.service_plans.applies_to | Type of entity the service plan applies to. | keyword |
-| o365.metrics.subscriptions.accounts.service_plans.provisioning_status | Status of the service plan provisioning. | keyword |
-| o365.metrics.subscriptions.accounts.service_plans.service_plan_id | Unique identifier for the service plan. | keyword |
-| o365.metrics.subscriptions.accounts.service_plans.service_plan_name | Name of the service plan. | keyword |
-| o365.metrics.subscriptions.accounts.sku_id | Unique identifier for the SKU. | keyword |
-| o365.metrics.subscriptions.accounts.sku_part_number | SKU part number. | keyword |
-| o365.metrics.subscriptions.accounts.subscription_ids | Array of subscription IDs. | keyword |
-| o365.metrics.subscriptions.accounts.surplus_units.count | Number of unused units which indicates if you oversubscribed to any SKUs. | long |
+| o365.metrics.subscriptions.account_id | Unique identifier for the account. | keyword |
+| o365.metrics.subscriptions.account_name | Name of the account. | text |
+| o365.metrics.subscriptions.applies_to | Type of entity the subscription applies to (e.g. User or Company). | keyword |
+| o365.metrics.subscriptions.capability_status | Status of the capability (e.g. Enabled, Suspended). | keyword |
+| o365.metrics.subscriptions.consumed_units.count | Number of consumed units. | long |
+| o365.metrics.subscriptions.id | Unique identifier for the subscription entry. | keyword |
+| o365.metrics.subscriptions.prepaid_units.enabled.count | Number of enabled prepaid units. | long |
+| o365.metrics.subscriptions.prepaid_units.locked_out.count | Number of locked-out prepaid units. | long |
+| o365.metrics.subscriptions.prepaid_units.suspended.count | Number of suspended prepaid units. | long |
+| o365.metrics.subscriptions.prepaid_units.warning.count | Number of prepaid units in warning state. | long |
+| o365.metrics.subscriptions.service_plans.applies_to | Type of entity the service plan applies to. | keyword |
+| o365.metrics.subscriptions.service_plans.provisioning_status | Status of the service plan provisioning. | keyword |
+| o365.metrics.subscriptions.service_plans.service_plan_id | Unique identifier for the service plan. | keyword |
+| o365.metrics.subscriptions.service_plans.service_plan_name | Name of the service plan. | keyword |
+| o365.metrics.subscriptions.sku_id | Unique identifier for the SKU. | keyword |
+| o365.metrics.subscriptions.sku_part_number | SKU part number. | keyword |
+| o365.metrics.subscriptions.subscription_ids | Array of subscription IDs. | keyword |
+| o365.metrics.subscriptions.surplus_units.count | Number of unused units which indicates if you oversubscribed to any SKUs. | long |
 

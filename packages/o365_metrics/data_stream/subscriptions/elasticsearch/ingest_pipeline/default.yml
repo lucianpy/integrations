@@ -5,44 +5,144 @@ processors:
       field: ecs.version
       value: "8.16.0"
   - set:
-      copy_from: subscriptions
+      copy_from: message
       field: event.original
       ignore_empty_value: true
       if: ctx.event?.original == null && (ctx.tags != null && (ctx.tags.contains('preserve_original_event')))
   - json:
-      field: subscriptions
+      field: message
       target_field: o365.metrics.subscriptions
       on_failure:
         - append:
             field: error.message
             value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+
   - rename:
-      field: o365.metrics.subscriptions.value
-      target_field: o365.metrics.subscriptions.accounts
+      field: o365.metrics.subscriptions.accountId
+      target_field: o365.metrics.subscriptions.account_id
       ignore_missing: true
 
-# Rename non-nested fields
-  - foreach:
-      field: o365.metrics.subscriptions.accounts
-      if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-      processor:
-        rename:
-          field: _ingest._value.accountId
-          target_field: _ingest._value.account_id
-          ignore_missing: true
+  - rename:
+      field: o365.metrics.subscriptions.accountName
+      target_field: o365.metrics.subscriptions.account_name
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.appliesTo
+      target_field: o365.metrics.subscriptions.applies_to
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.capabilityStatus
+      target_field: o365.metrics.subscriptions.capability_status
+      ignore_missing: true
+
+# Convert consumedUnits to long
+  - convert:
+      field: o365.metrics.subscriptions.consumedUnits
+      type: long
+      tag: convert_consumed_units_to_long
+      ignore_missing: true
+      on_failure:
+        - remove:
+            field: o365.metrics.subscriptions.consumedUnits
+        - append:
+            field: error.message
+            value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+
+  - rename:
+      field: o365.metrics.subscriptions.consumedUnits
+      target_field: o365.metrics.subscriptions.consumed_units.count
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.skuId
+      target_field: o365.metrics.subscriptions.sku_id
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.skuPartNumber
+      target_field: o365.metrics.subscriptions.sku_part_number
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.subscriptionIds
+      target_field: o365.metrics.subscriptions.subscription_ids
+      ignore_missing: true
+
+# Convert prepaidUnits.enabled to long
+  - convert:
+      field: o365.metrics.subscriptions.prepaidUnits.enabled
+      type: long
+      tag: convert_prepaidUnits_enabled_to_long
+      ignore_missing: true
+      on_failure:
+        - remove:
+            field: o365.metrics.subscriptions.prepaidUnits.enabled
+        - append:
+            field: error.message
+            value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+
+# Convert prepaidUnits.lockedOut to long
+  - convert:
+      field: o365.metrics.subscriptions.prepaidUnits.lockedOut
+      type: long
+      tag: convert_prepaidUnits_lockedOut_to_long
+      ignore_missing: true
+      on_failure:
+        - remove:
+            field: o365.metrics.subscriptions.prepaidUnits.lockedOut
+        - append:
+            field: error.message
+            value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+
+# Convert prepaidUnits.suspended to long
+  - convert:
+      field: o365.metrics.subscriptions.prepaidUnits.suspended
+      type: long
+      tag: convert_prepaidUnits_suspended_to_long
+      ignore_missing: true
+      on_failure:
+        - remove:
+            field: o365.metrics.subscriptions.prepaidUnits.suspended
+        - append:
+            field: error.message
+            value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+
+# Rename fields under prepaidUnits
+  - rename:
+      field: o365.metrics.subscriptions.prepaidUnits.enabled
+      target_field: o365.metrics.subscriptions.prepaid_units.enabled.count
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.prepaidUnits.lockedOut
+      target_field: o365.metrics.subscriptions.prepaid_units.locked_out.count
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.prepaidUnits.suspended
+      target_field: o365.metrics.subscriptions.prepaid_units.suspended.count
+      ignore_missing: true
+
+  - rename:
+      field: o365.metrics.subscriptions.prepaidUnits.warning
+      target_field: o365.metrics.subscriptions.prepaid_units.warning.count
+      ignore_missing: true
+
+  - remove:
+      field: o365.metrics.subscriptions.prepaidUnits
+      ignore_missing: true
+
+# Rename fields under servicePlans
+  - rename:
+      field: o365.metrics.subscriptions.servicePlans
+      target_field: o365.metrics.subscriptions.service_plans
+      ignore_missing: true
 
   - foreach:
-      field: o365.metrics.subscriptions.accounts
-      if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-      processor:
-        rename:
-          field: _ingest._value.accountName
-          target_field: _ingest._value.account_name
-          ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
+     field: o365.metrics.subscriptions.service_plans
+     if: ctx.o365?.metrics?.subscriptions?.service_plans instanceof List
      processor:
        rename:
          field: _ingest._value.appliesTo
@@ -50,275 +150,56 @@ processors:
          ignore_missing: true
 
   - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
+     field: o365.metrics.subscriptions.service_plans
+     if: ctx.o365?.metrics?.subscriptions?.service_plans instanceof List
      processor:
        rename:
-         field: _ingest._value.capabilityStatus
-         target_field: _ingest._value.capability_status
+         field: _ingest._value.provisioningStatus
+         target_field: _ingest._value.provisioning_status
          ignore_missing: true
 
-# Convert consumedUnits to long
   - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-      convert:
-        field: _ingest._value.consumedUnits
-        type: long
-        tag: convert_consumed_units_to_long
-        ignore_missing: true
-        on_failure:
-          - remove:
-              field: _ingest._value.consumedUnits
-          - append:
-              field: error.message
-              value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
+     field: o365.metrics.subscriptions.service_plans
+     if: ctx.o365?.metrics?.subscriptions?.service_plans instanceof List
      processor:
        rename:
-         field: _ingest._value.consumedUnits
-         target_field: _ingest._value.consumed_units.count
+         field: _ingest._value.servicePlanId
+         target_field: _ingest._value.service_plan_id
          ignore_missing: true
 
-
   - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
+     field: o365.metrics.subscriptions.service_plans
+     if: ctx.o365?.metrics?.subscriptions?.service_plans instanceof List
      processor:
        rename:
-         field: _ingest._value.consumedUnits
-         target_field: _ingest._value.consumed_units.count
+         field: _ingest._value.servicePlanName
+         target_field: _ingest._value.service_plan_name
          ignore_missing: true
 
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.skuId
-         target_field: _ingest._value.sku_id
-         ignore_missing: true
+  - remove:
+      if: ctx.message != null
+      field: message
+      ignore_missing: true
 
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.skuPartNumber
-         target_field: _ingest._value.sku_part_number
-         ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.subscriptionIds
-         target_field: _ingest._value.subscription_ids
-         ignore_missing: true
-
-# Convert prepaidUnits.enabled to long
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-      convert:
-        field: _ingest._value.prepaidUnits.enabled
-        type: long
-        tag: convert_prepaidUnits_enabled_to_long
-        ignore_missing: true
-        on_failure:
-          - remove:
-              field: _ingest._value.prepaidUnits.enabled
-          - append:
-              field: error.message
-              value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
-
-# Convert prepaidUnits.lockedOut to long
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-      convert:
-        field: _ingest._value.prepaidUnits.lockedOut
-        type: long
-        tag: convert_prepaidUnits_lockedOut_to_long
-        ignore_missing: true
-        on_failure:
-          - remove:
-              field: _ingest._value.prepaidUnits.lockedOut
-          - append:
-              field: error.message
-              value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
-
-# Convert prepaidUnits.suspended to long
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-      convert:
-        field: _ingest._value.prepaidUnits.suspended
-        type: long
-        tag: convert_prepaidUnits_suspended_to_long
-        ignore_missing: true
-        on_failure:
-          - remove:
-              field: _ingest._value.prepaidUnits.suspended
-          - append:
-              field: error.message
-              value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
-
-# Convert prepaidUnits.warning to long
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-      convert:
-        field: _ingest._value.prepaidUnits.warning
-        type: long
-        tag: convert_prepaidUnits_warning_to_long
-        ignore_missing: true
-        on_failure:
-          - remove:
-              field: _ingest._value.prepaidUnits.warning
-          - append:
-              field: error.message
-              value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.on_failure_pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
-
-# Rename fields under prepaidUnits
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.prepaidUnits.enabled
-         target_field: _ingest._value.prepaid_units.enabled.count
-         ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.prepaidUnits.lockedOut
-         target_field: _ingest._value.prepaid_units.locked_out.count
-         ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.prepaidUnits.suspended
-         target_field: _ingest._value.prepaid_units.suspended.count
-         ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.prepaidUnits.warning
-         target_field: _ingest._value.prepaid_units.warning.count
-         ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       remove:
-         field: _ingest._value.prepaidUnits
-         ignore_missing: true
-
-
-# Rename fields under servicePlans
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       rename:
-         field: _ingest._value.servicePlans
-         target_field: _ingest._value.service_plans
-         ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       foreach:
-         field: _ingest._value.service_plans
-         ignore_failure: true
-         processor:
-           rename:
-             field: _ingest._value.appliesTo
-             target_field: _ingest._value.applies_to
-             ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       foreach:
-         field: _ingest._value.service_plans
-         ignore_failure: true
-         processor:
-           rename:
-             field: _ingest._value.provisioningStatus
-             target_field: _ingest._value.provisioning_status
-             ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       foreach:
-         field: _ingest._value.service_plans
-         ignore_failure: true
-         processor:
-           rename:
-             field: _ingest._value.servicePlanId
-             target_field: _ingest._value.service_plan_id
-             ignore_missing: true
-
-  - foreach:
-     field: o365.metrics.subscriptions.accounts
-     if: ctx.o365?.metrics?.subscriptions?.accounts instanceof List
-     processor:
-       foreach:
-         field: _ingest._value.service_plans
-         ignore_failure: true
-         processor:
-           rename:
-             field: _ingest._value.servicePlanName
-             target_field: _ingest._value.service_plan_name
-             ignore_missing: true
 
 # Create surplus_units field, useful for indicating if you are oversubscribed to any SKUs
   - script:
-      description: "Calculate surplus units for each account in o365.metrics.subscriptions.accounts"
+      description: "Calculate surplus units for account in o365.metrics.subscriptions"
       lang: painless
       ignore_failure: true
       source: >
-        if (ctx.o365?.metrics?.subscriptions?.accounts instanceof List) {
-          for (def account : ctx.o365.metrics.subscriptions.accounts) {
-            if (account != null) {
-              def prepaid = account?.prepaid_units?.enabled?.count;
-              def consumed = account?.consumed_units?.count;
-              if (prepaid != null && consumed != null) {
-                account.surplus_units = account.surplus_units ?: [:];
-                account.surplus_units.count = prepaid - consumed;
-              }
-            }
+        if (ctx.o365?.metrics?.subscriptions != null) {
+          def prepaid = ctx.o365?.metrics?.subscriptions?.prepaid_units?.enabled?.count;
+          def consumed = ctx.o365?.metrics?.subscriptions?.consumed_units?.count;
+          if (prepaid != null && consumed != null) {
+            ctx.o365.metrics.subscriptions.surplus_units = ctx.o365.metrics.subscriptions.surplus_units ?: [:];
+            ctx.o365.metrics.subscriptions.surplus_units.count = prepaid - consumed;
           }
         }
 
   - remove:
-      if: ctx.subscriptions != null
-      field: subscriptions
+      if: ctx.message != null
+      field: message
       ignore_missing: true
 
   - script:
